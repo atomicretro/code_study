@@ -12,8 +12,23 @@ class LinkedList {
   }
 
   setTail(value) {
-    if(this.tail) this.tail = new Node(value, null, this.tail.previous);
-    else throw new NodeError("Cannot set tail on empty list");
+    if(this.tail) {
+      if(this.tail.previous) {
+        let newTail = new Node(value, null, this.tail.previous);
+        this.tail.previous.next = newTail;
+        this.tail = newTail;
+      } else {
+        let newTail = new Node(value, null, this.head);
+        this.head.next = newTail;
+        this.tail = newTail;
+      };
+    } else {
+      throw "Cannot set tail on empty list";
+    };
+  }
+
+  insert(value, index) {
+
   }
 
   insertNodeAtStart(value) {
@@ -26,5 +41,6 @@ class Node {
     this.value = value;
     this.next = next;
     this.previous = previous;
+    this.index = null;
   }
 };
