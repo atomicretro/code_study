@@ -8,7 +8,7 @@ class LinkedList {
     if(this.head) this.head = new Node(value, this.head.next, null);
     else this.head = new Node(value, null, null);
 
-    if(this.head.next == null) this.tail = this.head
+    if(this.head.next == null) this.tail = this.head;
   }
 
   setTail(value) {
@@ -27,8 +27,17 @@ class LinkedList {
     };
   }
 
-  insert(value, index) {
+  insertAfter(value, target) {
+    let next;
+    let previous;
+    let newNode;
 
+    if(this.head.value === target) {
+      next = this.head.next;
+      newNode = new Node(value, next, this.head);
+      this.head.next = newNode;
+      next.previous = newNode;
+    };
   }
 
   insertNodeAtStart(value) {
@@ -41,6 +50,5 @@ class Node {
     this.value = value;
     this.next = next;
     this.previous = previous;
-    this.index = null;
   }
 };
