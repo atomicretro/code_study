@@ -59,6 +59,16 @@ class LinkedList {
     };
   }
 
+  count() {
+    let thisNode = this.head;
+    let count = 0;
+    while(thisNode !== this.tail) {
+      count++;
+      thisNode = thisNode.next;
+    }
+    return count;
+  }
+
   inList(target) {
     let thisNode = this.head;
     while(true) {
