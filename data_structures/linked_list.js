@@ -68,6 +68,19 @@ class LinkedList {
     };
   }
 
+  findIndex(target) {
+    let thisNode = this.head;
+    let count = 0;
+    while(true) {
+      if(thisNode.value === target) return count;
+      else if(thisNode === this.tail) return -1;
+      else {
+        thisNode = thisNode.next;
+        count++;
+      };
+    };
+  }
+
   insertNodeAtStart(value) {
 
   }
