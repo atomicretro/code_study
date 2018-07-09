@@ -8,7 +8,7 @@ class LinkedList {
     if(this.head) this.head = new Node(value, this.head.next, null);
     else this.head = new Node(value, null, null);
 
-    if(this.head.next == null) this.tail = this.head;
+    if(this.head.next === null) this.tail = this.head;
   }
 
   setTail(value) {
@@ -28,15 +28,17 @@ class LinkedList {
   }
 
   insertAfter(value, target) {
-    let next;
-    let previous;
-    let newNode;
-
-    if(this.head.value === target) {
-      next = this.head.next;
-      newNode = new Node(value, next, this.head);
-      this.head.next = newNode;
-      next.previous = newNode;
+    let thisNode = this.head;
+    let found = false;
+    while(!found) {
+      if(thisNode.value === target) {
+        let newNode = new Node(value, thisNode.next, thisNode);
+        if(thisNode.next !== null) thisNode.next.previous = newNode;
+        thisNode.next = newNode;
+        found = true;
+      } else {
+        thisNode = thisNode.next;
+      };
     };
   }
 
