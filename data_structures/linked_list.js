@@ -34,6 +34,7 @@ class LinkedList {
       if(thisNode.value === target) {
         let newNode = new Node(value, thisNode.next, thisNode);
         if(thisNode.next !== null) thisNode.next.previous = newNode;
+        else this.tail = newNode;
         thisNode.next = newNode;
         foundTarget = true;
       } else {
