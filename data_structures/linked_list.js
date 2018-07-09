@@ -29,13 +29,29 @@ class LinkedList {
 
   insertAfter(value, target) {
     let thisNode = this.head;
-    let found = false;
-    while(!found) {
+    let foundTarget = false;
+    while(!foundTarget) {
       if(thisNode.value === target) {
         let newNode = new Node(value, thisNode.next, thisNode);
         if(thisNode.next !== null) thisNode.next.previous = newNode;
         thisNode.next = newNode;
-        found = true;
+        foundTarget = true;
+      } else {
+        thisNode = thisNode.next;
+      };
+    };
+  }
+
+  insertBefore(value, target) {
+    let thisNode = this.head;
+    let foundTarget = false;
+    while(!foundTarget) {
+      if(thisNode.value === target) {
+        let newNode = new Node(value, thisNode, thisNode.previous);
+        if(thisNode.previous !== null) thisNode.previous.next = newNode;
+        else this.head = newNode;
+        thisNode.previous = newNode;
+        foundTarget = true;
       } else {
         thisNode = thisNode.next;
       };
