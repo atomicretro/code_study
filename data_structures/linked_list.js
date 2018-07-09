@@ -59,6 +59,15 @@ class LinkedList {
     };
   }
 
+  inList(target) {
+    let thisNode = this.head;
+    while(true) {
+      if(thisNode.value === target) return true;
+      else if(thisNode === this.tail) return false;
+      else thisNode = thisNode.next;
+    };
+  }
+
   insertNodeAtStart(value) {
 
   }
