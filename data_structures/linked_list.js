@@ -1,40 +1,43 @@
-// some methods check for length === 0, some check for head === null
-// while(true) makes me uncomfortable; while(thisNode !== this.tail)
-//  doesn't check tails node
+// continue testing set / replace head / tail
 
 class LinkedList {
-  constructor() {
-    this.head = null;
+  constructor(value) {
+    if(value) {
+      this.head = new Node(value, null, null);
+      this.length = 1;
+    } else {
+      this.head = null;
+      this.length = 0;
+    };
     this.tail = null;
-    this.length = 0;
   }
 
   setHead(value) {
-    if(this.head) {
-      let next = this.head.next;
-      this.head = new Node(value, next, null);
-      if(next) next.previous = this.head;
-    } else {
-      this.length++;
+    if(!this.head) {
       this.head = new Node(value, null, null);
-      this.tail = this.head;
+      this.length++;
+    } else {
+      throw "Head already set";
     };
   }
 
-  setTail(value) {
-    if(this.head) {
-      if(this.length === 1) this.length++;
-      if(this.tail.previous) {
-        let newTail = new Node(value, null, this.tail.previous);
-        this.tail.previous.next = newTail;
-        this.tail = newTail;
-      } else {
-        let newTail = new Node(value, null, this.head);
-        this.head.next = newTail;
-        this.tail = newTail;
-      };
+  replaceHead(value) {
+    if(!this.head) {
+      throw "No head set";
     } else {
-      throw "Cannot set tail on empty list";
+      let next = this.head.next;
+      this.head = new Node(value, next, null);
+      if(next) next.previous = this.head;
+    };
+  }
+
+  replaceTail(value) {
+    if(!this.tail) {
+      throw "No tail set";
+    } else {
+      let previous = this.tail.previous;
+      this.tail = new Node(value, null, previous);
+      previous.next = this.tail;
     };
   }
 
