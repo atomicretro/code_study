@@ -1,4 +1,3 @@
-// count returns 1 when length === 0
 // some methods check for length === 0, some check for head === null
 // while(true) makes me uncomfortable; while(thisNode !== this.tail)
 //  doesn't check tails node
@@ -78,11 +77,11 @@ class LinkedList {
 
   count() {
     let thisNode = this.head;
-    let count = 1;
-    while(thisNode !== this.tail) {
+    let count = 0;
+    while(thisNode) {
       count++;
       thisNode = thisNode.next;
-    }
+    };
     return count;
   }
 
