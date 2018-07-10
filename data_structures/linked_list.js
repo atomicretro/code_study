@@ -10,15 +10,20 @@ class LinkedList {
   }
 
   setHead(value) {
-    if(this.head) this.head = new Node(value, this.head.next, null);
-    else this.head = new Node(value, null, null);
-    this.length++;
-    if(this.head.next === null) this.tail = this.head;
+    if(this.head) {
+      let next = this.head.next;
+      this.head = new Node(value, next, null);
+      if(next) next.previous = this.head;
+    } else {
+      this.length++;
+      this.head = new Node(value, null, null);
+      this.tail = this.head;
+    };
   }
 
   setTail(value) {
-    if(this.tail) {
-      this.length++;
+    if(this.head) {
+      if(this.length === 1) this.length++;
       if(this.tail.previous) {
         let newTail = new Node(value, null, this.tail.previous);
         this.tail.previous.next = newTail;
