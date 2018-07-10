@@ -36,8 +36,8 @@ class LinkedList {
   insertAfter(value, target) {
     if(this.length === 0) return -1;
 
-    let thisNode = this.head;
     let foundTarget = false;
+    let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
         let newNode = new Node(value, thisNode.next, thisNode);
@@ -57,8 +57,8 @@ class LinkedList {
   insertBefore(value, target) {
     if(this.length === 0) return -1;
 
-    let thisNode = this.head;
     let foundTarget = false;
+    let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
         let newNode = new Node(value, thisNode, thisNode.previous);
@@ -76,39 +76,36 @@ class LinkedList {
   }
 
   count() {
-    let thisNode = this.head;
     let count = 0;
+    let thisNode = this.head;
     while(thisNode) {
-      count++;
       thisNode = thisNode.next;
+      count++;
     };
     return count;
   }
 
   inList(target) {
-    if(this.head === null) return false;
-
     let thisNode = this.head;
-    while(true) {
+    while(thisNode) {
       if(thisNode.value === target) return true;
-      else if(thisNode === this.tail) return false;
       else thisNode = thisNode.next;
     };
+    return false;
   }
 
   findIndex(target) {
-    if(this.head === null) return -1;
-
-    let thisNode = this.head;
     let count = 0;
-    while(true) {
-      if(thisNode.value === target) return count;
-      else if(thisNode === this.tail) return -1;
-      else {
+    let thisNode = this.head;
+    while(thisNode) {
+      if(thisNode.value === target) {
+        return count;
+      } else {
         thisNode = thisNode.next;
         count++;
       };
     };
+    return -1;
   }
 
   insertNodeAtStart(value) {
