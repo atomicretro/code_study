@@ -13,7 +13,7 @@ function NodeException(message) {
 class LinkedList {
   constructor(value) {
     if(value) {
-      this.head = new Node(value, null, null);
+      this.head = new LLNode(value, null, null);
       this.length = 1;
     } else {
       this.head = null;
@@ -24,7 +24,7 @@ class LinkedList {
 
   setHead(value) {
     if(!this.head) {
-      this.head = new Node(value, null, null);
+      this.head = new LLNode(value, null, null);
       this.length++;
     } else {
       throw new NodeException("Head already set");
@@ -36,7 +36,7 @@ class LinkedList {
       throw new NodeException("No head set");
     } else {
       let next = this.head.next;
-      this.head = new Node(value, next, null);
+      this.head = new LLNode(value, next, null);
       if(next) next.previous = this.head;
     };
   }
@@ -46,19 +46,19 @@ class LinkedList {
       throw new NodeException("No tail set");
     } else {
       let previous = this.tail.previous;
-      this.tail = new Node(value, null, previous);
+      this.tail = new LLNode(value, null, previous);
       previous.next = this.tail;
     };
   }
 
   insertAfter(value, target) {
-    if(this.length === 0) return -1;
+    if(!this.head) return -1;
 
     let foundTarget = false;
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
-        let newNode = new Node(value, thisNode.next, thisNode);
+        let newNode = new LLNode(value, thisNode.next, thisNode);
         if(thisNode.next !== null) thisNode.next.previous = newNode;
         else this.tail = newNode;
         thisNode.next = newNode;
@@ -73,13 +73,13 @@ class LinkedList {
   }
 
   insertBefore(value, target) {
-    if(this.length === 0) return -1;
+    if(!this.head) return -1;
 
     let foundTarget = false;
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
-        let newNode = new Node(value, thisNode, thisNode.previous);
+        let newNode = new LLNode(value, thisNode, thisNode.previous);
         if(thisNode.previous !== null) thisNode.previous.next = newNode;
         else this.head = newNode;
         thisNode.previous = newNode;
@@ -91,6 +91,27 @@ class LinkedList {
         thisNode = thisNode.next;
       };
     };
+  }
+
+  insertAfterHead(value) {
+    if(!this.head) throw new NodeException("No head set");
+
+    let next = this.head.next;
+    let newNode = new LLNode(value, next, this.head)
+    if(next) next.previous = newNode;
+    else this.tail = newNode;
+    this.head.next = newNode;
+    this.length++;
+  }
+
+  insertBeforeHead(value) {
+    if(!this.head) throw new NodeException("No head set");
+
+    let newNode = new LLNode(value, this.head, null);
+    this.head.previous = newNode;
+    if(!this.tail) this.tail = this.head;
+    this.head = newNode;
+    this.length++;
   }
 
   count() {
@@ -125,13 +146,9 @@ class LinkedList {
     };
     return -1;
   }
-
-  insertNodeAtStart(value) {
-
-  }
 };
 
-class Node {
+class LLNode {
   constructor(value, next, previous) {
     this.value = value;
     this.next = next;
