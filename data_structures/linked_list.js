@@ -52,14 +52,14 @@ class LinkedList {
   }
 
   insertAfter(value, target) {
-    if(!this.head) return -1;
+    if(!this.head) throw new LinkedListException("Empty list");
 
     let foundTarget = false;
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
         let newNode = new LLNode(value, thisNode.next, thisNode);
-        if(thisNode.next !== null) thisNode.next.previous = newNode;
+        if(thisNode.next) thisNode.next.previous = newNode;
         else this.tail = newNode;
         thisNode.next = newNode;
         this.length++;
@@ -73,14 +73,14 @@ class LinkedList {
   }
 
   insertBefore(value, target) {
-    if(!this.head) return -1;
+    if(!this.head) throw new LinkedListException("Empty list");
 
     let foundTarget = false;
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
         let newNode = new LLNode(value, thisNode, thisNode.previous);
-        if(thisNode.previous !== null) thisNode.previous.next = newNode;
+        if(thisNode.previous) thisNode.previous.next = newNode;
         else this.head = newNode;
         thisNode.previous = newNode;
         this.length++;
@@ -132,6 +132,31 @@ class LinkedList {
     this.length++;
   }
 
+  remove(target) {
+    if(!this.head) throw new LinkedListException("Empty list");
+
+    if(this.head.value === target) {
+      let toBeRemoved = this.head;
+      toBeRemoved.next.previous = null;
+      this.head = toBeRemoved.next;
+      return toBeRemoved;
+    };
+
+    let thisNode = this.head.next;
+    while(thisNode) {
+      if(thisNode.value === target) {
+        thisNode.previous.next = thisNode.next;
+        if(thisNode.next) thisNode.next.previous = thisNode.previous;
+        else this.tail = thisNode.previous
+        return thisNode;
+      } else {
+        thisNode = thisNode.next;
+      };
+    };
+
+    return -1;
+  }
+
   count() {
     let count = 0;
     let thisNode = this.head;
@@ -151,12 +176,12 @@ class LinkedList {
     return false;
   }
 
-  findIndex(target) {
+  findAtIndex(target) {
     let count = 0;
     let thisNode = this.head;
     while(thisNode) {
       if(thisNode.value === target) {
-        return count;
+        return thisNode;
       } else {
         thisNode = thisNode.next;
         count++;
