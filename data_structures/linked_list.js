@@ -1,5 +1,15 @@
 // continue testing set / replace head / tail
 
+function LinkedListException(message) {
+   this.message = message;
+   this.name = 'LinkedListException';
+}
+
+function NodeException(message) {
+   this.message = message;
+   this.name = 'NodeException';
+}
+
 class LinkedList {
   constructor(value) {
     if(value) {
@@ -17,13 +27,13 @@ class LinkedList {
       this.head = new Node(value, null, null);
       this.length++;
     } else {
-      throw "Head already set";
+      throw new NodeException("Head already set");
     };
   }
 
   replaceHead(value) {
     if(!this.head) {
-      throw "No head set";
+      throw new NodeException("No head set");
     } else {
       let next = this.head.next;
       this.head = new Node(value, next, null);
@@ -33,7 +43,7 @@ class LinkedList {
 
   replaceTail(value) {
     if(!this.tail) {
-      throw "No tail set";
+      throw new NodeException("No tail set");
     } else {
       let previous = this.tail.previous;
       this.tail = new Node(value, null, previous);
