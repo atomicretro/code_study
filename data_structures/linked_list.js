@@ -114,6 +114,24 @@ class LinkedList {
     this.length++;
   }
 
+  insertAfterTail(value) {
+    if(!this.tail) throw new NodeException("No tail set");
+
+    let newNode = new LLNode(value, null, this.tail);
+    this.tail.next = newNode;
+    this.tail = newNode;
+    this.length++;
+  }
+
+  insertBeforeTail(value) {
+    if(!this.tail) throw new NodeException("No tail set");
+
+    let newNode = new LLNode(value, this.tail, this.tail.previous);
+    this.tail.previous.next = newNode;
+    this.tail.previous = newNode;
+    this.length++;
+  }
+
   count() {
     let count = 0;
     let thisNode = this.head;
