@@ -104,27 +104,17 @@ class LinkedList {
 
   insertAfterHead(value) {
     if(!this.head) throw new NodeException("No head set");
-
-    let next = this.head.next;
-    let newNode = new LLNode(value, next, this.head)
-    if(next) next.previous = newNode;
-    else this.tail = newNode;
-    this.head.next = newNode;
-    this.length++;
+    this.insertAfter(value, this.head.value);
   }
 
   insertBeforeHead(value) {
     if(!this.head) throw new NodeException("No head set");
-
-    let newNode = new LLNode(value, this.head, null);
-    this.head.previous = newNode;
-    if(!this.tail) this.tail = this.head;
-    this.head = newNode;
-    this.length++;
-  } //!this.tail doesn't work anymore there's always a tail
+    this.insertBefore(value, this.head.value);
+  }
 
   unshift(value) {
-    this.insertBeforeHead(value);
+    if(!this.head) throw new LinkedListException("Empty list");
+    this.insertBefore(value, this.head.value);
   }
 
   insertAfterTail(value) {
@@ -234,6 +224,10 @@ class LinkedList {
       };
     };
     return -1;
+  }
+
+  findAll(target) {
+
   }
 };
 
