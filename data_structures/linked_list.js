@@ -1,5 +1,3 @@
-// continue testing set / replace head / tail
-
 function LinkedListException(message) {
    this.message = message;
    this.name = 'LinkedListException';
@@ -13,41 +11,44 @@ function NodeException(message) {
 class LinkedList {
   constructor(value) {
     if(value) {
-      this.head = new LLNode(value, null, null);
-      this.length = 1;
+      this.setHead(value);
     } else {
       this.head = null;
+      this.tail = null;
       this.length = 0;
     };
-    this.tail = null;
   }
 
   setHead(value) {
-    if(!this.head) {
-      this.head = new LLNode(value, null, null);
-      this.length++;
-    } else {
+    if(this.head) {
       throw new NodeException("Head already set");
+    } else {
+      this.head = new LLNode(value, null, null);
+      this.tail = this.head;
+      this.length = 1;
     };
   }
 
   replaceHead(value) {
-    if(!this.head) {
-      throw new NodeException("No head set");
-    } else {
+    if(this.head) {
       let next = this.head.next;
       this.head = new LLNode(value, next, null);
       if(next) next.previous = this.head;
+      else this.tail = this.head;
+    } else {
+      throw new NodeException("No head set");
     };
   }
 
   replaceTail(value) {
-    if(!this.tail) {
-      throw new NodeException("No tail set");
-    } else {
+    if(this.tail && this.tail === this.head) {
+      this.repalceHead(value);
+    } else if(this.tail) {
       let previous = this.tail.previous;
       this.tail = new LLNode(value, null, previous);
       previous.next = this.tail;
+    } else {
+      throw new NodeException("No tail set");
     };
   }
 
@@ -93,6 +94,14 @@ class LinkedList {
     };
   }
 
+  insertAfterIdx(value, index) {
+
+  }
+
+  insertBeforeIdx(value, index) {
+
+  }
+
   insertAfterHead(value) {
     if(!this.head) throw new NodeException("No head set");
 
@@ -112,6 +121,10 @@ class LinkedList {
     if(!this.tail) this.tail = this.head;
     this.head = newNode;
     this.length++;
+  } //!this.tail doesn't work anymore there's always a tail
+
+  unshift(value) {
+    this.insertBeforeHead(value);
   }
 
   insertAfterTail(value) {
@@ -121,15 +134,26 @@ class LinkedList {
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
+  } //gotta add if/else's like insertBeforeTail
+
+  push(value) {
+    this.insertAfterTail(value);
   }
 
   insertBeforeTail(value) {
-    if(!this.tail) throw new NodeException("No tail set");
-
-    let newNode = new LLNode(value, this.tail, this.tail.previous);
-    this.tail.previous.next = newNode;
-    this.tail.previous = newNode;
-    this.length++;
+    if(this.tail && this.tail === this.head) {
+      let newNode = new LLNode(value, this.tail, null);
+      this.tail.previous = newNode;
+      this.head = newNode;
+      this.length++;
+    } else if(this.tail) {
+      let newNode = new LLNode(value, this.tail, this.tail.previous);
+      this.tail.previous.next = newNode;
+      this.tail.previous = newNode;
+      this.length++;
+    } else {
+      throw new NodeException("No tail set");
+    };
   }
 
   remove(target) {
@@ -139,6 +163,7 @@ class LinkedList {
       let toBeRemoved = this.head;
       toBeRemoved.next.previous = null;
       this.head = toBeRemoved.next;
+      this.length--;
       return toBeRemoved;
     };
 
@@ -148,6 +173,7 @@ class LinkedList {
         thisNode.previous.next = thisNode.next;
         if(thisNode.next) thisNode.next.previous = thisNode.previous;
         else this.tail = thisNode.previous
+        this.length--;
         return thisNode;
       } else {
         thisNode = thisNode.next;
@@ -155,6 +181,26 @@ class LinkedList {
     };
 
     return -1;
+  }
+
+  removeAtIdx(index) {
+
+  }
+
+  removeHead() {
+
+  }
+
+  shift() {
+    this.removeHead();
+  }
+
+  removeTail() {
+
+  }
+
+  pop() {
+    this.removeTail();
   }
 
   count() {
@@ -165,7 +211,7 @@ class LinkedList {
       count++;
     };
     return count;
-  }
+  } //add optional value; if included will count all instances of value in LL
 
   inList(target) {
     let thisNode = this.head;
