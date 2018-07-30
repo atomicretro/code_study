@@ -53,84 +53,28 @@ class LinkedList {
   }
 
   insertAfter(value, target) {
-    if(!this.head) throw new LinkedListException("Empty list");
-
-    let foundTarget = false;
-    let thisNode = this.head;
-    while(!foundTarget) {
-      if(thisNode.value === target) {
-        this._insertAfter(value, thisNode);
-        foundTarget = true;
-      } else if(thisNode === this.tail) {
-        return -1;
-      } else {
-        thisNode = thisNode.next;
-      };
-    };
+    if(!this.head) return undefined;
+    return this._insertStepper(value, target, this._insertAfter.bind(this));
   }
 
   insertBefore(value, target) {
-    if(!this.head) throw new LinkedListException("Empty list");
-
-    return this._insertionStepper(value, target, this._insertBefore.bind(this));
-
-    // let foundTarget = false;
-    // let thisNode = this.head;
-    // while(!foundTarget) {
-    //   if(thisNode.value === target) {
-    //     this._insertBefore(value, thisNode);
-    //     foundTarget = true;
-    //   } else if(thisNode === this.tail) {
-    //     return -1;
-    //   } else {
-    //     thisNode = thisNode.next;
-    //   };
-    // };
+    if(!this.head) return undefined;
+    return this._insertStepper(value, target, this._insertBefore.bind(this));
   }
 
-  _insertionStepper(value, target, callback) {
-    let foundTarget = false;
-    let thisNode = this.head;
-    while(!foundTarget) {
-      if(thisNode.value === target) {
-        callback(value, thisNode);
-        foundTarget = true;
-      } else if(thisNode === this.tail) {
-        return -1;
-      } else {
-        thisNode = thisNode.next;
-      };
-    };
-  }
-
-  insertAtIdx(value, targetIdx) {
-    if(!this.head) throw new LinkedListException("Empty list");
-
-    let currentIdx = 0;
-    let foundTarget = false;
-    let thisNode = this.head;
-    while (!foundTarget) {
-      if(currentIdx === targetIdx) {
-        this._insertBefore(value, thisNode);
-        foundTarget = true;
-      } else if(thisNode === this.tail) {
-        return -1;
-      } else {
-        currentIdx++;
-        thisNode = thisNode.next;
-      };
-    };
+  insertAtIdx(value, target) {
+    if(!this.head) return undefined;
+    return this._insertStepperIdx(value, target, this._insertBefore.bind(this));
   }
 
   insertAfterHead(value) {
-    this.insertAfter(value, (this.head ? this.head.value : null));
-    // this.head ? this.insertAfter(value, this.head.value) : return undefined;
+    if(!this.head) return undefined;
+    return this._insertStepper(value, this.head.value, this._insertAfter.bind(this));
   }
 
   insertBeforeHead(value) {
-    let target = this.head ? this.head.value : null;
-    this.insertBefore(value, target);
-    // this.head ? this.insertBefore(value, this.head.value) : return undefined;
+    if(!this.head) return undefined;
+    return this._insertStepper(value, this.head.value, this._insertBefore.bind(this));
   }
 
   insertAfterTail(value) {
@@ -241,6 +185,38 @@ class LinkedList {
 
   findAll(target) {
 
+  }
+
+  _insertStepper(value, target, callback) {
+    let foundTarget = false;
+    let thisNode = this.head;
+    while(!foundTarget) {
+      if(thisNode.value === target) {
+        callback(value, thisNode);
+        foundTarget = true;
+      } else if(thisNode === this.tail) {
+        return -1;
+      } else {
+        thisNode = thisNode.next;
+      };
+    };
+  }
+
+  _insertStepperIdx(value, target, callback) {
+    let currentIdx = 0;
+    let foundTarget = false;
+    let thisNode = this.head;
+    while (!foundTarget) {
+      if(currentIdx === targetIdx) {
+        callback(value, thisNode);
+        foundTarget = true;
+      } else if(thisNode === this.tail) {
+        return -1;
+      } else {
+        currentIdx++;
+        thisNode = thisNode.next;
+      };
+    };
   }
 
   _insertAfter(newValue, thisNode) {
