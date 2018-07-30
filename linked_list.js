@@ -103,47 +103,41 @@ class LinkedList {
   }
 
   insertAfterHead(value) {
-    if(!this.head) throw new NodeException("No head set");
-    this.insertAfter(value, this.head.value);
+    let target = this.head ? this.head.value : null;
+    this.insertAfter(value, target);
+    // this.head ? this.insertAfter(value, this.head.value) : return undefined;
   }
 
   insertBeforeHead(value) {
-    if(!this.head) throw new NodeException("No head set");
-    this.insertBefore(value, this.head.value);
-  }
-
-  unshift(value) {
-    if(!this.head) throw new LinkedListException("Empty list");
-    this.insertBefore(value, this.head.value);
+    let target = this.head ? this.head.value : null;
+    this.insertBefore(value, target);
+    // this.head ? this.insertBefore(value, this.head.value) : return undefined;
   }
 
   insertAfterTail(value) {
-    if(!this.tail) throw new NodeException("No tail set");
-
-    let newNode = new LLNode(value, null, this.tail);
-    this.tail.next = newNode;
-    this.tail = newNode;
-    this.length++;
-  } //gotta add if/else's like insertBeforeTail
-
-  push(value) {
-    this.insertAfterTail(value);
+    let target = this.tail ? this.tail.value : null;
+    this.insertAfter(value, target);
+    // this.tail ? this.insertAfter(value, this.tail.value) : return undefined;
   }
+  //DOESN'T WORK FOR TAIL B/C SOME NODE B/F TAIL MAY HAVE TAIL VALUE
+  //NEED TO IMPLEMENT INSERT W/IDX FOR THIS TO WORK EASY
 
   insertBeforeTail(value) {
-    if(this.tail && this.tail === this.head) {
-      let newNode = new LLNode(value, this.tail, null);
-      this.tail.previous = newNode;
-      this.head = newNode;
-      this.length++;
-    } else if(this.tail) {
-      let newNode = new LLNode(value, this.tail, this.tail.previous);
-      this.tail.previous.next = newNode;
-      this.tail.previous = newNode;
-      this.length++;
-    } else {
-      throw new NodeException("No tail set");
-    };
+    let target = this.tail ? this.tail.value : null;
+    this.insertBefore(value, target);
+    // this.tail ? this.insertBefore(value, this.tail.value) : return undefined;
+  }
+
+  push(value) {
+    let target = this.tail ? this.tail.value : null;
+    this.insertAfter(value, target);
+    // this.tail ? this.insertAfter(value, this.tail.value) : return undefined;
+  }
+
+  unshift(value) {
+    let target = this.head ? this.head.value : null;
+    this.insertBefore(value, target);
+    // this.head ? this.insertBefore(value, this.head.value) : return undefined;
   }
 
   remove(target) {
