@@ -54,30 +54,32 @@ class LinkedList {
 
   insertAfter(value, target) {
     if(!this.head) return undefined;
-    return this._insertStepper(value, target, this._insertAfter.bind(this));
+    return this._insertHelper(value, target, this._insertAfter.bind(this));
   }
 
   insertBefore(value, target) {
     if(!this.head) return undefined;
-    return this._insertStepper(value, target, this._insertBefore.bind(this));
+    return this._insertHelper(value, target, this._insertBefore.bind(this));
   }
 
   insertAtIdx(value, target) {
     if(!this.head) return undefined;
-    return this._insertStepperIdx(value, target, this._insertBefore.bind(this));
+    return this._insertHelperIdx(value, target, this._insertBefore.bind(this));
   }
 
   insertAfterHead(value) {
     if(!this.head) return undefined;
-    return this._insertStepper(value, this.head.value, this._insertAfter.bind(this));
+    return this._insertHelper(value, this.head.value, this._insertAfter.bind(this));
   }
 
   insertBeforeHead(value) {
     if(!this.head) return undefined;
-    return this._insertStepper(value, this.head.value, this._insertBefore.bind(this));
+    return this._insertHelper(value, this.head.value, this._insertBefore.bind(this));
   }
 
   insertAfterTail(value) {
+    if(!this.head) return undefined;
+
     let target = this.tail ? this.tail.value : null;
     this.insertAfter(value, target);
     // this.tail ? this.insertAfter(value, this.tail.value) : return undefined;
@@ -187,7 +189,7 @@ class LinkedList {
 
   }
 
-  _insertStepper(value, target, callback) {
+  _insertHelper(value, target, callback) {
     let foundTarget = false;
     let thisNode = this.head;
     while(!foundTarget) {
@@ -202,7 +204,7 @@ class LinkedList {
     };
   }
 
-  _insertStepperIdx(value, target, callback) {
+  _insertHelperIdx(value, target, callback) {
     let currentIdx = 0;
     let foundTarget = false;
     let thisNode = this.head;
