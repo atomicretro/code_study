@@ -54,55 +54,56 @@ class LinkedList {
 
   insertAfter(value, target) {
     if(!this.head) return undefined;
-    return this._insertHelper(value, target, this._insertAfter.bind(this));
+    let insertCallback = this._insertAfter.bind(this);
+    return this._insertHelper(value, target, insertCallback);
   }
 
   insertBefore(value, target) {
     if(!this.head) return undefined;
-    return this._insertHelper(value, target, this._insertBefore.bind(this));
+    let insertCallback = this._insertBefore.bind(this);
+    return this._insertHelper(value, target, insertCallback);
   }
 
-  insertAtIdx(value, target) {
+  insertAtIdx(value, targetIdx) {
     if(!this.head) return undefined;
-    return this._insertHelperIdx(value, target, this._insertBefore.bind(this));
+    let insertCallback = this._insertBefore.bind(this);
+    return this._insertHelperIdx(value, targetIdx, insertCallback);
   }
 
   insertAfterHead(value) {
     if(!this.head) return undefined;
-    return this._insertHelper(value, this.head.value, this._insertAfter.bind(this));
+    let insertCallback = this._insertAfter.bind(this);
+    return this._insertHelper(value, this.head.value, insertCallback);
   }
 
   insertBeforeHead(value) {
     if(!this.head) return undefined;
-    return this._insertHelper(value, this.head.value, this._insertBefore.bind(this));
+    let insertCallback = this._insertBefore.bind(this);
+    return this._insertHelper(value, this.head.value, insertCallback);
   }
 
   insertAfterTail(value) {
     if(!this.head) return undefined;
-
-    let target = this.tail ? this.tail.value : null;
-    this.insertAfter(value, target);
-    // this.tail ? this.insertAfter(value, this.tail.value) : return undefined;
+    let insertCallback = this._insertAfter.bind(this);
+    return this._insertHelperIdx(value, this.length - 1, insertCallback);
   }
-  //DOESN'T WORK FOR TAIL B/C SOME NODE B/F TAIL MAY HAVE TAIL VALUE
-  //NEED TO IMPLEMENT INSERT W/IDX FOR THIS TO WORK EASY
 
   insertBeforeTail(value) {
-    let target = this.tail ? this.tail.value : null;
-    this.insertBefore(value, target);
-    // this.tail ? this.insertBefore(value, this.tail.value) : return undefined;
+    if(!this.head) return undefined;
+    let insertCallback = this._insertBefore.bind(this);
+    return this._insertHelperIdx(value, this.length - 1, insertCallback);
   }
 
   push(value) {
-    let target = this.tail ? this.tail.value : null;
-    this.insertAfter(value, target);
-    // this.tail ? this.insertAfter(value, this.tail.value) : return undefined;
+    if(!this.head) return undefined;
+    let insertCallback = this._insertAfter.bind(this);
+    return this._insertHelperIdx(value, this.length - 1, insertCallback);
   }
 
   unshift(value) {
-    let target = this.head ? this.head.value : null;
-    this.insertBefore(value, target);
-    // this.head ? this.insertBefore(value, this.head.value) : return undefined;
+    if(!this.head) return undefined;
+    let insertCallback = this._insertBefore.bind(this);
+    return this._insertHelper(value, this.head.value, insertCallback);
   }
 
   remove(target) {
@@ -204,7 +205,7 @@ class LinkedList {
     };
   }
 
-  _insertHelperIdx(value, target, callback) {
+  _insertHelperIdx(value, targetIdx, callback) {
     let currentIdx = 0;
     let foundTarget = false;
     let thisNode = this.head;
