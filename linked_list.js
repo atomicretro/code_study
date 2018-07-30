@@ -59,11 +59,7 @@ class LinkedList {
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
-        let newNode = new LLNode(value, thisNode.next, thisNode);
-        if(thisNode.next) thisNode.next.previous = newNode;
-        else this.tail = newNode;
-        thisNode.next = newNode;
-        this.length++;
+        this._insertAfter(value, thisNode);
         foundTarget = true;
       } else if(thisNode === this.tail) {
         return -1;
@@ -80,11 +76,7 @@ class LinkedList {
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
-        let newNode = new LLNode(value, thisNode, thisNode.previous);
-        if(thisNode.previous) thisNode.previous.next = newNode;
-        else this.head = newNode;
-        thisNode.previous = newNode;
-        this.length++;
+        this._insertBefore(value, thisNode);
         foundTarget = true;
       } else if(thisNode === this.tail) {
         return -1;
@@ -94,12 +86,23 @@ class LinkedList {
     };
   }
 
-  insertAfterIdx(value, index) {
+  insertAtIdx(value, targetIdx) {
+    if(!this.head) throw new LinkedListException("Empty list");
 
-  }
-
-  insertBeforeIdx(value, index) {
-
+    let currentIdx = 0;
+    let foundTarget = false;
+    let thisNode = this.head;
+    while (!foundTarget) {
+      if(currentIdx === targetIdx) {
+        this._insertBefore(value, thisNode);
+        foundTarget = true;
+      } else if(thisNode === this.tail) {
+        return -1;
+      } else {
+        currentIdx++;
+        thisNode = thisNode.next;
+      };
+    };
   }
 
   insertAfterHead(value) {
@@ -222,6 +225,22 @@ class LinkedList {
 
   findAll(target) {
 
+  }
+
+  _insertAfter(newValue, thisNode) {
+    let newNode = new LLNode(newValue, thisNode.next, thisNode);
+    if(thisNode.next) thisNode.next.previous = newNode;
+    else this.tail = newNode;
+    thisNode.next = newNode;
+    this.length++;
+  }
+
+  _insertBefore(newValue, thisNode) {
+    let newNode = new LLNode(newValue, thisNode, thisNode.previous);
+    if(thisNode.previous) thisNode.previous.next = newNode;
+    else this.head = newNode;
+    thisNode.previous = newNode;
+    this.length++;
   }
 };
 
