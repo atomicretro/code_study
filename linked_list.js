@@ -156,23 +156,41 @@ class LinkedList {
     return this.removeTail();
   }
 
-  count() {
-    let count = 0;
-    let thisNode = this.head;
-    while(thisNode) {
-      thisNode = thisNode.next;
-      count++;
+  count(value) {
+    if(value) {
+      return this.findAll(value);
+    } else {
+      let count = 0;
+      let thisNode = this.head;
+      while(thisNode) {
+        count++;
+        thisNode = thisNode.next;
+      };
+      return count;
     };
-    return count;
-  } //add optional value; if included will count all instances of value in LL
+  }
 
-  inList(target) {
+  includes(target) {
     let thisNode = this.head;
     while(thisNode) {
       if(thisNode.value === target) return true;
       else thisNode = thisNode.next;
     };
     return false;
+  }
+
+  find(target) {
+    let count = 0;
+    let thisNode = this.head;
+    while(thisNode) {
+      if(thisNode.value === target) {
+        return count;
+      } else {
+        count++;
+        thisNode = thisNode.next;
+      };
+    };
+    return -1;
   }
 
   findAtIndex(target) {
@@ -182,15 +200,21 @@ class LinkedList {
       if(thisNode.value === target) {
         return thisNode;
       } else {
-        thisNode = thisNode.next;
         count++;
+        thisNode = thisNode.next;
       };
     };
     return -1;
   }
 
   findAll(target) {
-
+    let count = 0;
+    let thisNode = this.head;
+    while(thisNode) {
+      if(thisNode.value === target) count++;
+      thisNode = thisNode.next;
+    };
+    return count;
   }
 
   _insertHelper(value, target, insertCallback) {
@@ -251,7 +275,6 @@ class LinkedList {
         thisNode = thisNode.next;
       };
     };
-
     return -1;
   }
 
@@ -267,7 +290,6 @@ class LinkedList {
         thisNode = thisNode.next;
       }
     }
-
     return -1;
   }
 
