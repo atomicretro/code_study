@@ -1,3 +1,8 @@
+// insert before / after head and tail ====>
+//    WE DON'T NEED TO USE INSERT HELPER HERE; WE ALWAYS HAVE this.head &&
+//    this.tail, WE DON'T NEED TO STEP THROUGH THE LL TO FIND THESE NODES
+//  does that mean we need the stepper helpers at all??? DISCUSS
+
 function LinkedListException(message) {
    this.message = message;
    this.name = 'LinkedListException';
@@ -72,38 +77,32 @@ class LinkedList {
 
   insertAfterHead(value) {
     if(!this.head) return undefined;
-    let insertCallback = this._insertAfter.bind(this);
-    return this._insertHelper(value, this.head.value, insertCallback);
+    this._insertAfter(value, this.head);
   }
 
   insertBeforeHead(value) {
     if(!this.head) return undefined;
-    let insertCallback = this._insertBefore.bind(this);
-    return this._insertHelper(value, this.head.value, insertCallback);
+    this._insertBefore(value, this.head);
   }
 
   insertAfterTail(value) {
     if(!this.head) return undefined;
-    let insertCallback = this._insertAfter.bind(this);
-    return this._insertHelperIdx(value, this.length - 1, insertCallback);
+    this._insertAfter(value, this.tail);
   }
 
   insertBeforeTail(value) {
     if(!this.head) return undefined;
-    let insertCallback = this._insertBefore.bind(this);
-    return this._insertHelperIdx(value, this.length - 1, insertCallback);
-  }
-
-  push(value) {
-    if(!this.head) return undefined;
-    let insertCallback = this._insertAfter.bind(this);
-    return this._insertHelperIdx(value, this.length - 1, insertCallback);
+    this._insertBefore(value, this.tail);
   }
 
   unshift(value) {
     if(!this.head) return undefined;
-    let insertCallback = this._insertBefore.bind(this);
-    return this._insertHelper(value, this.head.value, insertCallback);
+    this._insertBefore(value, this.head);
+  }
+
+  push(value) {
+    if(!this.head) return undefined;
+    this._insertAfter(value, this.tail);
   }
 
   remove(target) {
