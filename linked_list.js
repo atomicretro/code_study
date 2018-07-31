@@ -1,17 +1,15 @@
-// insert before / after head and tail ====>
-//    WE DON'T NEED TO USE INSERT HELPER HERE; WE ALWAYS HAVE this.head &&
-//    this.tail, WE DON'T NEED TO STEP THROUGH THE LL TO FIND THESE NODES
-//  does that mean we need the stepper helpers at all??? DISCUSS
-
 function LinkedListException(message) {
    this.message = message;
    this.name = 'LinkedListException';
-}
+}y
 
-function NodeException(message) {
-   this.message = message;
-   this.name = 'NodeException';
-}
+class LLNode {
+  constructor(value, next, previous) {
+    this.value = value;
+    this.next = next;
+    this.previous = previous;
+  }
+};
 
 class LinkedList {
   constructor(value) {
@@ -26,7 +24,7 @@ class LinkedList {
 
   setHead(value) {
     if(this.head) {
-      throw new NodeException("Head already set");
+      this.replaceHead(value)
     } else {
       this.head = new LLNode(value, null, null);
       this.tail = this.head;
@@ -41,7 +39,7 @@ class LinkedList {
       if(next) next.previous = this.head;
       else this.tail = this.head;
     } else {
-      throw new NodeException("No head set");
+      throw new LinkedListException("No head set");
     };
   }
 
@@ -53,7 +51,7 @@ class LinkedList {
       this.tail = new LLNode(value, null, previous);
       previous.next = this.tail;
     } else {
-      throw new NodeException("No tail set");
+      throw new LinkedListException("No tail set");
     };
   }
 
@@ -69,7 +67,7 @@ class LinkedList {
     return this._insertHelper(value, target, insertCallback);
   }
 
-  insertAtIdx(value, targetIdx) {
+  insertAtIndex(value, targetIdx) {
     if(!this.head) return undefined;
     let insertCallback = this._insertBefore.bind(this);
     return this._insertHelperIdx(value, targetIdx, insertCallback);
@@ -112,7 +110,7 @@ class LinkedList {
 
   }
 
-  removeAtIdx(targetIndex) {
+  removeAtIndex(targetIndex) {
     if(!this.head) return undefined;
     if(targetIndex === 0) return this.removeHead();
     return this._removeHelperIdx(targetIndex);
@@ -122,8 +120,7 @@ class LinkedList {
     let toBeRemoved = this.head;
     if(this.length === 1) {
       throw new LinkedListException("Cannot empty out List");
-      // this.head = null;
-      // this.tail = null;
+      // this.head = null; this.tail = null;
       // eventually implement ability to completely empty out list
     } else {
       toBeRemoved.next.previous = null;
@@ -141,9 +138,6 @@ class LinkedList {
     let toBeRemoved = this.tail;
     if(this.length === 1) {
       throw new LinkedListException("Cannot empty out List");
-      // this.head = null;
-      // this.tail = null;
-      // eventually implement ability to completely empty out list
     } else {
       toBeRemoved.previous.next = null;
       this.tail = toBeRemoved.previous;
@@ -298,13 +292,5 @@ class LinkedList {
     if(thisNode.next) thisNode.next.previous = thisNode.previous;
     else this.tail = thisNode.previous
     this.length--;
-  }
-};
-
-class LLNode {
-  constructor(value, next, previous) {
-    this.value = value;
-    this.next = next;
-    this.previous = previous;
   }
 };
