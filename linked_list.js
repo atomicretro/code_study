@@ -138,11 +138,22 @@ class LinkedList {
   }
 
   removeTail() {
-
+    let toBeRemoved = this.tail;
+    if(this.length === 1) {
+      throw new LinkedListException("Cannot empty out List");
+      // this.head = null;
+      // this.tail = null;
+      // eventually implement ability to completely empty out list
+    } else {
+      toBeRemoved.previous.next = null;
+      this.tail = toBeRemoved.previous;
+    };
+    this.length--;
+    return toBeRemoved;
   }
 
   pop() {
-    this.removeTail();
+    return this.removeTail();
   }
 
   count() {
