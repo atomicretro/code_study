@@ -183,12 +183,12 @@ class LinkedList {
 
   }
 
-  _insertHelper(value, target, callback) {
+  _insertHelper(value, target, insertCallback) {
     let foundTarget = false;
     let thisNode = this.head;
     while(!foundTarget) {
       if(thisNode.value === target) {
-        callback(value, thisNode);
+        insertCallback(value, thisNode);
         foundTarget = true;
       } else if(thisNode === this.tail) {
         return -1;
@@ -198,13 +198,13 @@ class LinkedList {
     };
   }
 
-  _insertHelperIdx(value, targetIdx, callback) {
+  _insertHelperIdx(value, targetIdx, insertCallback) {
     let currentIdx = 0;
     let foundTarget = false;
     let thisNode = this.head;
     while (!foundTarget) {
       if(currentIdx === targetIdx) {
-        callback(value, thisNode);
+        insertCallback(value, thisNode);
         foundTarget = true;
       } else if(thisNode === this.tail) {
         return -1;
