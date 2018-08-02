@@ -2,10 +2,7 @@ class Stack {
   constructor(value) {
     this._stack = {};
     this._pointer = 0;
-    if(value) {
-      this.push(value);
-      this._pointer++;
-    };
+    if(value) this.push(value);
   }
 
   push(value) {
