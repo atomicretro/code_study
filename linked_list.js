@@ -1,7 +1,7 @@
 function LinkedListException(message) {
    this.message = message;
    this.name = 'LinkedListException';
-}y
+}
 
 class LLNode {
   constructor(value, next, previous) {
