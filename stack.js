@@ -1,8 +1,3 @@
-function StackException(message) {
-   this.message = message;
-   this.name = 'StackException';
-}
-
 class Stack {
   constructor(value) {
     this._stack = {};
@@ -31,5 +26,9 @@ class Stack {
 
   peek() {
     return this._stack[this._pointer - 1];
+  }
+
+  length() {
+    return this._pointer;
   }
 }
