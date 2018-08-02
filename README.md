@@ -1,14 +1,14 @@
 # Abstract Data Structures
 This is a 1/2 academic, 1/2 practical attempt at creating some of the various abstract data types and structures in JavaScript. Each completed structure has been designed with both usability and efficiency in mind. Each file contains everything the associated structure would need to be usable in real-world applications.
 
-To use a data structure include `import [Data Structure] from 'file_name.js';` at the top of your JavaScript file.
+To use a data structure include `import [DataStructure] from '[file_name.js]';` at the top of your JavaScript file.
 
 The current working data structures are as follows:
 
 ### Stack
 `new Stack([element])`
 
-FIFO implementation of a hash map. The keys of the hash represent their associated value's position in the stack. The 'top-most' element is kept track of using an internal `_pointer` property.
+FIFO stack implementation of a hash map. The keys of the hash represent their associated value's position in the stack. The 'top-most' element is kept track of using an internal `_pointer` property.
 
 A Stack can be declared with or without a starting element.
 
@@ -20,7 +20,7 @@ A Stack can be declared with or without a starting element.
 ### Queue
 `new Queue([element])`
 
-LIFO implementation of a hash map. The keys of the hash represent their associated value's position in the queue. Both the 'front' and 'back' elements are kept track of using internal `_front` and `_back` properties.
+LIFO queue implementation of a hash map. The keys of the hash represent their associated value's position in the queue. Both the 'front' and 'back' elements are kept track of using internal `_front` and `_back` properties.
 
 A Queue can be declared with or without a starting element.
 
@@ -40,7 +40,7 @@ A Linked List can be declared with or without a starting value. If declared with
 * `length` — returns the number of nodes in the list. O(1) time complexity.
 * `head` — returns the current head node. O(1) time complexity.
 * `tail` — returns the current tail node. O(1) time complexity.
-* `setHead(value)` — creates and assigns a head node on an empty list, or reassigns the head node on a non-empty list. O(1) time complexity.
+* `setHead(value)` — creates and assigns a head node on an empty list, or reassigns the head node of a non-empty list. O(1) time complexity.
 * `replaceHead(value)` — reassigns the head node of a non-empty list. Will throw a `LinkedListException` if called on an empty-list. O(1) time complexity.
 * `replaceTail(value)` — reassigns the tail node of a non-empty list. Will throw a `LinkedListException` if called on an empty-list. O(1) time complexity.
 * `insertAfter(value, targetValue)` — inserts a Node with a value of `value` after the first instance of `targetValue` in the list. O(n) time complexity.
@@ -54,8 +54,8 @@ A Linked List can be declared with or without a starting value. If declared with
 * `push(value)` — alias of `insertAfterTail(value)`. O(1) time complexity.
 * `remove(target)` — removes and returns the first node whose `value` matches the `target`. O(n) time complexity.
 * `removeAtIndex(targetIndex)` — removes and returns the node at `targetIndex`. O(n) time complexity.
-* `removeHead()` — removes and returns the head node. Reassigns the head node to the new first node. O(1) time complexity.
-* `removeTail()` — removes and returns the tail node. Reassigns the tail node to the new last node. O(1) time complexity.
+* `removeHead()` — removes and returns the head node. Reassigns the head node to the new first node. Will throw a `LinkedListException` if called on a list with only one node. O(1) time complexity.
+* `removeTail()` — removes and returns the tail node. Reassigns the tail node to the new last node. Will throw a `LinkedListException` if called on a list with only one node. O(1) time complexity.
 * `shift()` — alias of `removeHead()`. O(1) time complexity.
 * `pop()` — alias of `removeTail()`. O(1) time complexity.
 * `count([target])` — without a `target`: enumerates through each Node of the Linked List to return a count of all the nodes. with a `target`: enumerates through each Node of the Linked List to return a count of all the nodes whose `value` matches `target`; O(n) time complexity.
