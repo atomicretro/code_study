@@ -1,12 +1,12 @@
 class Stack {
-  constructor(value) {
+  constructor(element) {
     this._stack = {};
     this._pointer = 0;
-    if(value !== undefined) this.push(value);
+    if(element !== undefined) this.push(element);
   }
 
-  push(value) {
-    this._stack[this._pointer] = value;
+  push(element) {
+    this._stack[this._pointer] = element;
     this._pointer++;
   }
 
@@ -29,3 +29,5 @@ class Stack {
     return this._pointer;
   }
 }
+
+export default Stack;

@@ -150,9 +150,9 @@ class LinkedList {
     return this.removeTail();
   }
 
-  count(value) {
-    if(value) {
-      return this.findAll(value);
+  count(target) {
+    if(target !== undefined) {
+      return this.findAll(target);
     } else {
       let count = 0;
       let thisNode = this.head;
@@ -294,3 +294,5 @@ class LinkedList {
     this.length--;
   }
 };
+
+export default LinkedList;

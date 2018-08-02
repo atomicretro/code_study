@@ -1,13 +1,13 @@
 class Queue {
-  constructor(value) {
+  constructor(element) {
     this._queue = {};
     this._front = 0;
     this._back = 0;
-    if(value !== undefined) this.enqueue(value);
+    if(element !== undefined) this.enqueue(element);
   }
 
-  enqueue(value) {
-    this._queue[this._back] = value;
+  enqueue(element) {
+    this._queue[this._back] = element;
     this._back++;
   }
 
@@ -34,3 +34,5 @@ class Queue {
     return this._queue[this._back - 1];
   }
 }
+
+export default Queue;
