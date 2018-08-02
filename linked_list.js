@@ -13,7 +13,7 @@ class LLNode {
 
 class LinkedList {
   constructor(value) {
-    if(value) {
+    if(value !== undefined) {
       this.setHead(value);
     } else {
       this.head = null;

@@ -2,7 +2,7 @@ class Stack {
   constructor(value) {
     this._stack = {};
     this._pointer = 0;
-    if(value) this.push(value);
+    if(value !== undefined) this.push(value);
   }
 
   push(value) {
@@ -12,7 +12,7 @@ class Stack {
 
   pop() {
     if(this._pointer === 0) {
-      return undefined;
+      return undefined; // Stack is empty
     } else {
       this._pointer--;
       let toBeRemoved = this._stack[this._pointer];
