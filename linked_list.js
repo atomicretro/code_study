@@ -18,6 +18,7 @@ class LinkedList {
     } else {
       this.head = null;
       this.tail = null;
+      this.pointer = null;
       this.length = 0;
     };
   }
@@ -28,6 +29,7 @@ class LinkedList {
     } else {
       this.head = new LLNode(value, null, null);
       this.tail = this.head;
+      this.pointer = this.head;
       this.length = 1;
     };
   }
@@ -53,6 +55,30 @@ class LinkedList {
     } else {
       throw new LinkedListException("No tail set");
     };
+  }
+
+  select() {
+    return this.pointer;
+  }
+
+  next() {
+    if(this.pointer.next) this.pointer = this.pointer.next;
+    else return undefined;
+  }
+
+  previous() {
+    if(this.pointer.previous) this.pointer = this.pointer.previous;
+    else return undefined;
+  }
+
+  nextAndSelect() {
+    this.forward();
+    return this.pointer;
+  }
+
+  previousAndSelect() {
+    this.back();
+    return this.pointer();
   }
 
   insertAfter(value, target) {
@@ -103,11 +129,20 @@ class LinkedList {
     this._insertAfter(value, this.tail);
   }
 
+  insertAfterPointer(value) {
+    if(!this.head) return undefined;
+    this._insertAfter(value, this.pointer);
+  }
+
+  insertBeforePointer(value) {
+    if(!this.head) return undefined;
+    this._insertBefore(value, this.pointer);
+  }
+
   remove(target) {
     if(!this.head) return undefined;
     if(this.head.value === target) return this.removeHead();
     return this._removeHelper(target);
-
   }
 
   removeAtIndex(targetIndex) {
@@ -148,6 +183,17 @@ class LinkedList {
 
   pop() {
     return this.removeTail();
+  }
+
+  removePointer() {
+    let toBeRemoved = this.pointer;
+    if(this.length === 1) {
+      throw new LinkedListException("Cannot empty out List");
+    } else {
+      this._remove(this.pointer);
+      this.pointer = toBeRemoved.next;
+    };
+    return toBeRemoved;
   }
 
   count(target) {
