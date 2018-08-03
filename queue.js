@@ -30,6 +30,10 @@ class Queue {
     return this._queue[this._front];
   }
 
+  peekN(n) {
+    return this._queue[this._front + n];
+  }
+
   peekBack() {
     return this._queue[this._back - 1];
   }

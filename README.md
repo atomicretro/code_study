@@ -28,6 +28,7 @@ A Queue can be declared with or without a starting element.
 * `dequeue()` — removes and returns the element at the front of the queue. O(1) time complexity.
 * `length()` — returns the number of elements in the queue as an integer value. O(1) time complexity.
 * `peek()` — returns the next element to be dequeued (AKA the current front-most element). O(1) time complexity.
+* `peekN(n)` — returns the zeroth-indexed `nth` element of the queue. O(1) time complexity.
 * `peekBack()` — returns the current back-most element. O(1) time complexity.
 
 ### Linked List
