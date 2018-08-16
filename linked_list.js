@@ -35,14 +35,8 @@ class LinkedList {
   }
 
   replaceHead(value) {
-    if(this.head) {
-      let next = this.head.next;
-      this.head = new LLNode(value, next, null);
-      if(next) next.previous = this.head;
-      else this.tail = this.head;
-    } else {
-      throw new LinkedListException("No head set");
-    };
+    if(this.head) this.head.value = value
+    else throw new LinkedListException("No head set");
   }
 
   replaceTail(value) {
