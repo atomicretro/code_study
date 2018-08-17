@@ -10,7 +10,7 @@ describe('initialize Stack without a starting element', () => {
     expect(stack.peek()).toBeUndefined();
   });
 
-  test('Stack.push(el) adds element to the top of the stack', () => {
+  test('Stack#push(el) adds element to top of stack', () => {
     stack.push(1);
     expect(stack.peek()).toBe(1);
     stack.push(2);
@@ -26,14 +26,14 @@ describe('initialize Stack without a starting element', () => {
     expect(stack.peek()).toBe(1);
   })
 
-  test('Stack.peek() only returns last element', () => {
+  test('Stack#peek() returns topmost element', () => {
     stack.push(1);
     expect(stack.peek()).toBe(1);
     stack.push(2);
     expect(stack.peek()).not.toBe(1);
   });
 
-  test('Stack.length() returns the correct length of the stack', () => {
+  test('Stack#length() returns correct length of stack', () => {
     expect(stack.length()).toBe(0);
     stack.push(1);
     expect(stack.length()).toBe(1);
@@ -41,20 +41,20 @@ describe('initialize Stack without a starting element', () => {
     expect(stack.length()).toBe(2);
   });
 
-  test('Stack.pop() returns undefined on an empty stack', () => {
+  test('Stack#pop() returns undefined on empty stack', () => {
     expect(stack.pop()).toBeUndefined();
   });
 
-  test('Stack.pop() returns correct element  on a non-empty stack', () => {
-      stack.push(1);
-      expect(stack.pop()).toBe(1);
+  test('Stack#pop() returns correct element on non-empty stack', () => {
+    stack.push(1);
+    expect(stack.pop()).toBe(1);
   });
 
-  test('Stack.length() returns correct length *after* Stack.pop()', () => {
+  test('Stack#length() returns correct length *after* Stack#pop()', () => {
     stack.push(1);
+    stack.push(2);
+    stack.pop();
     expect(stack.length()).toBe(1);
-    stack.pop()
-    expect(stack.length()).toBe(0);
   });
 
   test('Stack integrity remains through 100,000 random operations', () => {
@@ -84,7 +84,7 @@ describe('initialize Stack with a starting element', () => {
     expect(stack.peek()).toBe(1);
   });
 
-  test('Stack.push(el) adds element to the top of the stack', () => {
+  test('Stack#push(el) adds element to top of stack', () => {
     stack.push(2);
     expect(stack.peek()).toBe(2);
     stack.push(3);
@@ -100,7 +100,7 @@ describe('initialize Stack with a starting element', () => {
     expect(stack.peek()).toBe(1);
   })
 
-  test('Stack.peek() only returns last element', () => {
+  test('Stack#peek() returns topmost element', () => {
     expect(stack.peek()).toBe(1);
     stack.push(2);
     expect(stack.peek()).toBe(2);
@@ -108,7 +108,7 @@ describe('initialize Stack with a starting element', () => {
     expect(stack.peek()).not.toBe(2);
   });
 
-  test('Stack.length() returns the correct length of the stack', () => {
+  test('Stack#length() returns correct length of stack', () => {
     expect(stack.length()).toBe(1);
     stack.push(2);
     expect(stack.length()).toBe(2);
@@ -116,23 +116,20 @@ describe('initialize Stack with a starting element', () => {
     expect(stack.length()).toBe(3);
   });
 
-  test('Stack.pop() returns undefined on an empty stack', () => {
+  test('Stack#pop() returns undefined on empty stack', () => {
     stack.pop();
     expect(stack.pop()).toBeUndefined();
   });
 
-  test('Stack.pop() returns correct element  on a non-empty stack', () => {
-      stack.push(2);
-      expect(stack.pop()).toBe(2);
+  test('Stack#pop() returns correct element on non-empty stack', () => {
+    stack.push(2);
+    expect(stack.pop()).toBe(2);
   });
 
-  test('Stack.length() returns correct length *after* Stack.pop()', () => {
+  test('Stack#length() returns correct length *after* Stack#pop()', () => {
     stack.push(2);
-    expect(stack.length()).toBe(2);
-    stack.pop()
+    stack.pop();
     expect(stack.length()).toBe(1);
-    stack.pop()
-    expect(stack.length()).toBe(0);
   });
 
   test('Stack integrity remains through 100,000 random operations', () => {
