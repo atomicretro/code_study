@@ -1,0 +1,23 @@
+{
+  "name": "data_structures",
+  "version": "1.0.0",
+  "description": "A half academic, half practical attempt at creating some of the various abstract data types and structures in JavaScript.",
+  "main": "linked_list.js",
+  "dependencies": {
+    "jest": "^23.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomicretro/data_structures.git"
+  },
+  "author": "alec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atomicretro/data_structures/issues"
+  },
+  "homepage": "https://github.com/atomicretro/data_structures#readme"
+}
