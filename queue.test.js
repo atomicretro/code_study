@@ -7,7 +7,7 @@ describe('initialize Queue without a starting element', () => {
   });
 
   test('Queue initializes empty', () => {
-    expect(queue.peek()).toBeUndefined();
+    expect(queue._queue[0]).toBeUndefined();
   });
 
   test('Queue#enqueue(el) adds element to back of queue', () => {

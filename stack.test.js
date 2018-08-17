@@ -7,23 +7,23 @@ describe('initialize Stack without a starting element', () => {
   });
 
   test('Stack initializes empty', () => {
-    expect(stack.peek()).toBeUndefined();
+    expect(stack._stack[0]).toBeUndefined();
   });
 
   test('Stack#push(el) adds element to top of stack', () => {
     stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[0]).toBe(1);
     stack.push(2);
-    expect(stack.peek()).toBe(2);
+    expect(stack._stack[1]).toBe(2);
   });
 
   test('Stack has no trouble pushing on equivalent elements', () => {
     stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[0]).toBe(1);
     stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[1]).toBe(1);
     stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[2]).toBe(1);
   })
 
   test('Stack#peek() returns topmost element', () => {
@@ -81,23 +81,22 @@ describe('initialize Stack with a starting element', () => {
   });
 
   test('Stack initializes with one element', () => {
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[0]).toBe(1);
   });
 
   test('Stack#push(el) adds element to top of stack', () => {
     stack.push(2);
-    expect(stack.peek()).toBe(2);
+    expect(stack._stack[1]).toBe(2);
     stack.push(3);
-    expect(stack.peek()).toBe(3);
+    expect(stack._stack[2]).toBe(3);
   });
 
   test('Stack has no trouble pushing on equivalent elements', () => {
+    expect(stack._stack[0]).toBe(1);
     stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[1]).toBe(1);
     stack.push(1);
-    expect(stack.peek()).toBe(1);
-    stack.push(1);
-    expect(stack.peek()).toBe(1);
+    expect(stack._stack[2]).toBe(1);
   })
 
   test('Stack#peek() returns topmost element', () => {
