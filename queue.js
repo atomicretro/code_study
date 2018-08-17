@@ -26,16 +26,14 @@ class Queue {
     return this._back - this._front;
   }
 
-  peek() {
-    return this._queue[this._front];
+  peek(n) {
+    if(Number.isInteger(n)) return this._queue[this._front + n];
+    else return this._queue[this._front];
   }
 
-  peekN(n) {
-    return this._queue[this._front + n];
-  }
-
-  peekBack() {
-    return this._queue[this._back - 1];
+  peekBack(n) {
+    if(Number.isInteger(n)) return this._queue[this._back - (n + 1)];
+    else return this._queue[this._back - 1];
   }
 }
 

@@ -28,39 +28,66 @@ describe('initialize Queue without a starting element', () => {
 
   test('Queue#peek() returns undefined on empty queue', () => {
     expect(queue.peek()).toBeUndefined();
+    expect(queue.peek(1)).toBeUndefined();
   });
 
-  test('Queue#peek() returns frontmost element', () => {
+  test('Queue#peek() without argument returns frontmost element', () => {
     queue.enqueue(1);
     expect(queue.peek()).toBe(1);
     queue.enqueue(2);
     expect(queue.peek()).toBe(1);
   });
 
-  test('Queue#peekBack() returns undefined on empty queue', () => {
-    expect(queue.peekBack()).toBeUndefined();
+  test(
+    'Queue#peek(n) with valid argument returns nth most element from front',
+    () => {
+      queue.enqueue(1);
+      expect(queue.peek(0)).toBe(1);
+      queue.enqueue(2);
+      queue.enqueue(3);
+      expect(queue.peek(2)).toBe(3);
   });
 
-  test('Queue#peekBack() returns backmost element', () => {
+  test(
+    'Queue#peek(n) with invalid argument returns frontmost most element',
+    () => {
+      queue.enqueue(1);
+      expect(queue.peek('a')).toBe(1);
+      queue.enqueue(2);
+      queue.enqueue(3);
+      expect(queue.peek(null)).toBe(1);
+  });
+
+  test('Queue#peekBack() returns undefined on empty queue', () => {
+    expect(queue.peekBack()).toBeUndefined();
+    expect(queue.peekBack(1)).toBeUndefined();
+  });
+
+  test('Queue#peekBack() without argument returns backmost element', () => {
     queue.enqueue(1);
     expect(queue.peekBack()).toBe(1);
     queue.enqueue(2);
     expect(queue.peekBack()).toBe(2);
   });
 
-  test('Queue#peekN(n) returns undefined when n is out of range', () => {
-    queue.enqueue(1);
-    queue.enqueue(2);
-    expect(queue.peekN(2)).toBeUndefined();
+  test(
+    'Queue#peekBack(n) with valid argument returns nth most element from back',
+    () => {
+      queue.enqueue(1);
+      expect(queue.peekBack(0)).toBe(1);
+      queue.enqueue(2);
+      queue.enqueue(3);
+      expect(queue.peekBack(2)).toBe(1);
   });
 
-  test('Queue#peekN(n) returns nth most element from front', () => {
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-    expect(queue.peekN(0)).toBe(1);
-    expect(queue.peekN(1)).toBe(2);
-    expect(queue.peekN(2)).toBe(3);
+  test(
+    'Queue#peekBack(n) with invalid argument returns nth most element from back',
+    () => {
+      queue.enqueue(1);
+      expect(queue.peekBack('a')).toBe(1);
+      queue.enqueue(2);
+      queue.enqueue(3);
+      expect(queue.peekBack(null)).toBe(3);
   });
 
   test('Queue#length() returns correct length of queue', () => {
@@ -136,36 +163,59 @@ describe('initialize Queue with a starting element', () => {
   test('Queue#peek() returns undefined on empty queue', () => {
     queue.dequeue()
     expect(queue.peek()).toBeUndefined();
+    expect(queue.peek(1)).toBeUndefined();
   });
 
-  test('Queue#peek() returns frontmost element', () => {
+  test('Queue#peek() without argument returns frontmost element', () => {
     expect(queue.peek()).toBe(1);
     queue.enqueue(2);
     expect(queue.peek()).toBe(1);
+  });
+
+  test('Queue#peek with valid argument returns nth most element from front', () => {
+    expect(queue.peek(0)).toBe(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+    queue.enqueue(4);
+    expect(queue.peek(3)).toBe(4);
+  });
+
+  test('Queue#peek with invalid argument returns frontmost most element', () => {
+    expect(queue.peek('a')).toBe(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+    queue.enqueue(4);
+    expect(queue.peek(null)).toBe(1);
   });
 
   test('Queue#peekBack() returns undefined on empty queue', () => {
     queue.dequeue()
     expect(queue.peekBack()).toBeUndefined();
+    expect(queue.peekBack(1)).toBeUndefined();
   });
 
-  test('Queue#peekBack() returns backmost element', () => {
+  test('Queue#peekBack() without argument returns backmost element', () => {
     expect(queue.peekBack()).toBe(1);
     queue.enqueue(2);
     expect(queue.peekBack()).toBe(2);
   });
 
-  test('Queue#peekN(n) returns undefined when n is out of range', () => {
-    queue.enqueue(2);
-    expect(queue.peekN(2)).toBeUndefined();
+  test(
+    'Queue#peekBack(n) with valid argument returns nth most element from back',
+    () => {
+      expect(queue.peekBack(0)).toBe(1);
+      queue.enqueue(2);
+      queue.enqueue(3);
+      expect(queue.peekBack(2)).toBe(1);
   });
 
-  test('Queue#peekN(n) returns nth most element from front', () => {
-    queue.enqueue(2);
-    queue.enqueue(3);
-    expect(queue.peekN(0)).toBe(1);
-    expect(queue.peekN(1)).toBe(2);
-    expect(queue.peekN(2)).toBe(3);
+  test(
+    'Queue#peekBack(n) with invalid argument returns nth most element from back',
+    () => {
+      expect(queue.peekBack('a')).toBe(1);
+      queue.enqueue(2);
+      queue.enqueue(3);
+      expect(queue.peekBack(null)).toBe(3);
   });
 
   test('Queue#length() returns correct length of queue', () => {
