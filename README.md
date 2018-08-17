@@ -27,9 +27,8 @@ A Queue can be declared with or without a starting element.
 * `enqueue(element)` — adds `element` to the back of the queue. O(1) time complexity.
 * `dequeue()` — removes and returns the element at the front of the queue. O(1) time complexity.
 * `length()` — returns the number of elements in the queue as an integer value. O(1) time complexity.
-* `peek()` — returns the next element to be dequeued (AKA the current front-most element). O(1) time complexity.
-* `peekN(n)` — returns the zeroth-indexed `nth` element of the queue. O(1) time complexity.
-* `peekBack()` — returns the current back-most element. O(1) time complexity.
+* `peek([n])` — without an argument: returns the next element to be dequeued (AKA the current front-most element). With an argument: returns the nth most element from the front of the queue. O(1) time complexity.
+* `peekBack([n])` — without an argument: returns the current back-most element. With an argument: returns the nth most element from the back of the queue. O(1) time complexity.
 
 ### Linked List
 `new LinkedList([element])`
