@@ -1,7 +1,7 @@
 # Abstract Data Structures
 A half academic, half practical attempt at creating some of the various abstract data types and structures in JavaScript. Each completed structure has been designed with both usability and efficiency in mind. Each file contains everything the associated structure would need to be usable in real-world applications.
 
-To use a data structure include `import [DataStructure] from '[file_name.js]';` at the top of your JavaScript file.
+Imports are currently done through CommonJS syntax. To use a data structure you must initialize the structure at the top of your file: `const [DataStructureClass] = require('[file_name.js]');`
 
 The current working data structures are as follows:
 
