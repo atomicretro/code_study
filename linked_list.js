@@ -18,8 +18,8 @@ class LinkedList {
     } else {
       this.head = null;
       this.tail = null;
-      this.pointer = null;
       this.length = 0;
+      this._pointer = null;
     };
   }
 
@@ -29,7 +29,7 @@ class LinkedList {
     } else {
       this.head = new LLNode(value, null, null);
       this.tail = this.head;
-      this.pointer = this.head;
+      this._pointer = this.head;
       this.length = 1;
     };
   }
@@ -41,7 +41,7 @@ class LinkedList {
 
   replaceTail(value) {
     if(this.tail && this.tail === this.head) {
-      this.repalceHead(value);
+      this.replaceHead(value);
     } else if(this.tail) {
       let previous = this.tail.previous;
       this.tail = new LLNode(value, null, previous);
@@ -52,27 +52,27 @@ class LinkedList {
   }
 
   select() {
-    return this.pointer;
+    return this._pointer;
   }
 
   next() {
-    if(this.pointer.next) this.pointer = this.pointer.next;
-    else return undefined;
+    if(!this._pointer || !this._pointer.next) return undefined;
+    else this._pointer = this._pointer.next;
   }
 
   previous() {
-    if(this.pointer.previous) this.pointer = this.pointer.previous;
-    else return undefined;
+    if(!this._pointer || !this._pointer.previous) return undefined;
+    else this._pointer = this._pointer.previous;
   }
 
   nextAndSelect() {
-    this.forward();
-    return this.pointer;
+    this.next();
+    return this._pointer;
   }
 
   previousAndSelect() {
-    this.back();
-    return this.pointer();
+    this.previous();
+    return this._pointer;
   }
 
   insertAfter(value, target) {
@@ -125,12 +125,12 @@ class LinkedList {
 
   insertAfterPointer(value) {
     if(!this.head) return undefined;
-    this._insertAfter(value, this.pointer);
+    this._insertAfter(value, this._pointer);
   }
 
   insertBeforePointer(value) {
     if(!this.head) return undefined;
-    this._insertBefore(value, this.pointer);
+    this._insertBefore(value, this._pointer);
   }
 
   remove(target) {
@@ -146,6 +146,7 @@ class LinkedList {
   }
 
   removeHead() {
+    if(!this.head) return undefined;
     let toBeRemoved = this.head;
     if(this.length === 1) {
       throw new LinkedListException("Cannot empty out List");
@@ -164,6 +165,7 @@ class LinkedList {
   }
 
   removeTail() {
+    if(!this.head) return undefined;
     let toBeRemoved = this.tail;
     if(this.length === 1) {
       throw new LinkedListException("Cannot empty out List");
@@ -180,12 +182,12 @@ class LinkedList {
   }
 
   removePointer() {
-    let toBeRemoved = this.pointer;
+    let toBeRemoved = this._pointer;
     if(this.length === 1) {
       throw new LinkedListException("Cannot empty out List");
     } else {
-      this._remove(this.pointer);
-      this.pointer = toBeRemoved.next;
+      this._remove(this._pointer);
+      this._pointer = toBeRemoved.next;
     };
     return toBeRemoved;
   }
@@ -335,4 +337,4 @@ class LinkedList {
   }
 };
 
-export default LinkedList;
+module.exports = LinkedList;
