@@ -572,9 +572,67 @@ describe('initialize Linked List without a starting element', () => {
       list.removePointer();
       expect(list.length).toBe(1);
     });
+  });
 
-    test('', () => {
+  describe('test count and find methods', () => {
+    test('count() with no target counts every node in list', () => {
+      expect(list.count()).toBe(0);
+      list.setHead('a');
+      expect(list.count()).toBe(1);
+      list.insertAfter('b', 'a');
+      expect(list.count()).toBe(2);
+      list.insertAfter('c', 'b');
+      expect(list.count()).toBe(3);
+    });
 
+    test('count(t) with target counts every instance of t in list', () => {
+      expect(list.count('a')).toBe(0);
+      list.setHead('a');
+      expect(list.count('a')).toBe(1);
+      list.insertAfter('b', 'a');
+      list.insertAfter('a', 'b');
+      expect(list.count('a')).toBe(2);
+    });
+
+    test('includes(t) returns false when t is not in list', () => {
+      expect(list.includes('d')).toBeFalsy();
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.includes('d')).toBeFalsy();
+    });
+
+    test('includes(t) returns true when t is in list', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.includes('a')).toBeTruthy();
+      expect(list.includes('c')).toBeTruthy();
+    });
+
+    test('find(t) returns -1 when t is not in list', () => {
+      expect(list.find('d')).toBe(-1);
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.find('d')).toBe(-1);
+    });
+
+    test('find(t) returns index value of found node when t is in list', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.find('a')).toBe(0);
+      expect(list.find('c')).toBe(2);
+    });
+
+    test('findAll(t) returns number of nodes with value t in list', () => {
+      expect(list.findAll('a')).toBe(0);
+      list.setHead('a');
+      expect(list.findAll('a')).toBe(1);
+      list.insertAfter('b', 'a');
+      list.insertAfter('a', 'b');
+      expect(list.findAll('a')).toBe(2);
     });
   });
 });
