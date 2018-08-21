@@ -338,11 +338,6 @@ describe('initialize Linked List without a starting element', () => {
       expect(list.remove('a')).toBeUndefined();
     });
 
-    test('remove(t) when attempting to remove last node throws LinkedListException', () => {
-      list.setHead('a');
-      expect(() => list.remove('a')).toThrow();
-    });
-
     test('remove(t) can remove head node from list', () => {
       list.setHead('a');
       list.insertAfterHead('b');
@@ -367,6 +362,15 @@ describe('initialize Linked List without a starting element', () => {
       expect(list.remove('b').value).toBe('b');
       expect(list.head.next.value).toBe('b');
       expect(list.head.next.next.value).toBe('c');
+    });
+
+    test('remove(t) on filled list resets _pointer to head if removing pointer node', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.next();
+      list.remove('b');
+      expect(list.select()).toBe(list.head);
     });
 
     test('removeAtIndex(n) returns undefined on empty list', () => {
@@ -398,44 +402,175 @@ describe('initialize Linked List without a starting element', () => {
       expect(list.tail.previous.value).toBe('a');
     });
 
+    test('removeAtIndex(n) on filled list resets _pointer to head if removing pointer node', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.next();
+      list.removeAtIndex(1);
+      expect(list.select()).toBe(list.head);
+    });
+
     test('removeHead() returns undefined on empty list', () => {
       expect(list.removeHead()).toBeUndefined();
     });
 
-    test('', () => {
-
+    test('removeHead() on filled list removes, returns, and reassigns head', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.removeHead().value).toBe('a');
+      expect(list.head.value).toBe('b');
+      expect(list.head.next.value).toBe('c');
     });
 
-    test('', () => {
-
+    test('removeHead() on filled list decrements list.length by 1', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.removeHead();
+      expect(list.length).toBe(2);
     });
 
-    test('', () => {
-
+    test('removeHead() sets _pointer to new head if removing pointer node', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.removeHead();
+      expect(list.select()).toBe(list.head);
     });
 
-    test('', () => {
-
+    test('shift() returns undefined on empty list', () => {
+      expect(list.shift()).toBeUndefined();
     });
 
-    test('', () => {
-
+    test('shift() on filled list removes, returns, and reassigns head', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.shift().value).toBe('a');
+      expect(list.head.value).toBe('b');
+      expect(list.head.next.value).toBe('c');
     });
 
-    test('', () => {
-
+    test('shift() on filled list decrements list.length by 1', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.shift();
+      expect(list.length).toBe(2);
     });
 
-    test('', () => {
-
+    test('removeTail() returns undefined on empty list', () => {
+      expect(list.removeTail()).toBeUndefined();
     });
 
-    test('', () => {
-
+    test('removeTail() on filled list removes, returns, and reassigns tail', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.removeTail().value).toBe('c');
+      expect(list.tail.value).toBe('b');
+      expect(list.tail.previous.value).toBe('a');
     });
 
-    test('', () => {
+    test('removeTail() on filled list decrements list.length by 1', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.removeTail();
+      expect(list.length).toBe(2);
+    });
 
+    test('removeTail() resets _pointer to head if removing pointer node', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.next();
+      list.next();
+      list.removeTail();
+      expect(list.select()).toBe(list.head);
+    });
+
+    test('pop() returns undefined on empty list', () => {
+      expect(list.pop()).toBeUndefined();
+    });
+
+    test('pop() on filled list removes, returns, and reassigns head', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.pop().value).toBe('c');
+      expect(list.tail.value).toBe('b');
+      expect(list.tail.previous.value).toBe('a');
+    });
+
+    test('pop() on filled list decrements list.length by 1', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.pop();
+      expect(list.length).toBe(2);
+    });
+
+    test('removePointer() returns undefined on empty list', () => {
+      expect(list.removePointer()).toBeUndefined();
+    });
+
+    test('removePointer() on filled list removes and returns pointer node and shifts _pointer to next node', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.next();
+      expect(list.removePointer().value).toBe('b');
+      expect(list.head.next).toBe(list.tail);
+      expect(list.tail.previous).toBe(list.head);
+      expect(list.select()).toBe(list.tail);
+    });
+
+    test('removePointer() on filled list shifts _pointer to previous node if pointer was on tail', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.next();
+      list.next();
+      list.removePointer();
+      expect(list.select()).toBe(list.tail);
+    });
+
+    test('removePointer() on filled list can remove head', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      expect(list.removePointer().value).toBe('a');
+      expect(list.head.value).toBe('b');
+      expect(list.head.next.value).toBe('c');
+    });
+
+    test('removePointer() on filled list can remove tail', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.next();
+      list.next();
+      expect(list.removePointer().value).toBe('c');
+      expect(list.tail.value).toBe('b');
+      expect(list.tail.previous.value).toBe('a');
+    });
+
+    test('removePointer() on filled list decrements list.length by 1', () => {
+      list.setHead('a');
+      list.insertAfter('b', 'a');
+      list.insertAfter('c', 'b');
+      list.insertAfter('d', 'c');
+      list.removePointer();
+      expect(list.length).toBe(3);
+      list.next();
+      list.removePointer();
+      expect(list.length).toBe(2);
+      list.next();
+      list.removePointer();
+      expect(list.length).toBe(1);
     });
 
     test('', () => {
