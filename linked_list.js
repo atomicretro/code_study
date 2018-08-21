@@ -114,13 +114,11 @@ class LinkedList {
   }
 
   unshift(value) {
-    if(!this.head) return undefined;
-    this._insertBefore(value, this.head);
+    this.insertBeforeHead(value);
   }
 
   push(value) {
-    if(!this.head) return undefined;
-    this._insertAfter(value, this.tail);
+    this.insertAfterTail(value);
   }
 
   insertAfterPointer(value) {
@@ -135,28 +133,46 @@ class LinkedList {
 
   remove(target) {
     if(!this.head) return undefined;
-    if(this.head.value === target) return this.removeHead();
-    return this._removeHelper(target);
+    if(this.length === 1) return this._removeOnlyNode();
+    if(this.head.value === target) return this._removeHead();
+    let thisNode = this.head.next;
+    while(thisNode) {
+      if(thisNode.value === target) {
+        if(this.select() === thisNode) this._pointerHelper();
+        this._remove(thisNode);
+        return thisNode;
+      } else {
+        thisNode = thisNode.next;
+      };
+    };
+    return -1;
   }
 
   removeAtIndex(targetIndex) {
     if(!this.head) return undefined;
-    if(targetIndex === 0) return this.removeHead();
-    return this._removeHelperIdx(targetIndex);
+    if(this.length === 1 && targetIndex === 0) return this._removeOnlyNode();
+    if(targetIndex === 0) return this._removeHead();
+    let currentIdx = 1;
+    let thisNode = this.head.next;
+    while(thisNode) {
+      if(currentIdx === targetIndex) {
+        if(this.select() === thisNode) this._pointerHelper();
+        this._remove(thisNode);
+        return thisNode;
+      } else {
+        currentIdx++;
+        thisNode = thisNode.next;
+      };
+    };
+    return -1;
   }
 
   removeHead() {
     if(!this.head) return undefined;
+    if(this.length === 1) return this._removeOnlyNode();
     let toBeRemoved = this.head;
-    if(this.length === 1) {
-      throw new LinkedListException("Cannot empty out List");
-      // this.head = null; this.tail = null;
-      // eventually implement ability to completely empty out list
-    } else {
-      toBeRemoved.next.previous = null;
-      this.head = toBeRemoved.next;
-    };
-    this.length--;
+    this._removeHead();
+    if(this.select() === toBeRemoved) this._pointerHelper();
     return toBeRemoved;
   }
 
@@ -166,14 +182,10 @@ class LinkedList {
 
   removeTail() {
     if(!this.head) return undefined;
+    if(this.length === 1) return this._removeOnlyNode();
     let toBeRemoved = this.tail;
-    if(this.length === 1) {
-      throw new LinkedListException("Cannot empty out List");
-    } else {
-      toBeRemoved.previous.next = null;
-      this.tail = toBeRemoved.previous;
-    };
-    this.length--;
+    this._remove(this.tail);
+    if(this.select() === toBeRemoved) this._pointerHelper();
     return toBeRemoved;
   }
 
@@ -182,12 +194,15 @@ class LinkedList {
   }
 
   removePointer() {
+    if(!this.head) return undefined;
+    if(this.length === 1) return this._removeOnlyNode();
     let toBeRemoved = this._pointer;
-    if(this.length === 1) {
-      throw new LinkedListException("Cannot empty out List");
+    if(this._pointer === this.head) {
+      this._removeHead();
     } else {
       this._remove(this._pointer);
-      this._pointer = toBeRemoved.next;
+      if(toBeRemoved.next) this._pointer = toBeRemoved.next;
+      else this._pointer = this.tail;
     };
     return toBeRemoved;
   }
@@ -301,39 +316,28 @@ class LinkedList {
     this.length++;
   }
 
-  _removeHelper(target) {
-    let thisNode = this.head.next;
-    while(thisNode) {
-      if(thisNode.value === target) {
-        this._remove(thisNode);
-        return thisNode;
-      } else {
-        thisNode = thisNode.next;
-      };
-    };
-    return -1;
-  }
-
-  _removeHelperIdx(targetIndex) {
-    let currentIdx = 1;
-    let thisNode = this.head.next;
-    while(thisNode) {
-      if(currentIdx === targetIndex) {
-        this._remove(thisNode);
-        return thisNode;
-      } else {
-        currentIdx++;
-        thisNode = thisNode.next;
-      }
-    }
-    return -1;
-  }
-
   _remove(thisNode) {
     thisNode.previous.next = thisNode.next;
     if(thisNode.next) thisNode.next.previous = thisNode.previous;
     else this.tail = thisNode.previous
     this.length--;
+  }
+
+  _removeHead() {
+    this.head.next.previous = null;
+    this.head = this.head.next;
+    this.length--;
+  }
+
+  _removeOnlyNode() {
+    let toBeRemoved = this.head;
+    this.head = null;
+    this.tail = null;
+    return toBeRemoved;
+  }
+
+  _pointerHelper() {
+    this._pointer = this.head;
   }
 };
 
