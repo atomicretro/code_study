@@ -197,8 +197,6 @@ class LinkedList {
     if(!this.head) return undefined;
     if(this.length === 1) return this._removeOnlyNode();
     let toBeRemoved = this._pointer;
-    // console.log(`pointer: ${this._pointer}`);
-    // console.log(`head: ${this.head}`);
     if(this._pointer === this.head) {
       this._removeHead();
       this._pointer = this.toBeRemoved.next;
