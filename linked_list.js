@@ -199,7 +199,7 @@ class LinkedList {
     let toBeRemoved = this._pointer;
     if(this._pointer === this.head) {
       this._removeHead();
-      this._pointer = this.toBeRemoved.next;
+      this._pointer = toBeRemoved.next;
     } else {
       this._remove(this._pointer);
       if(toBeRemoved.next) this._pointer = toBeRemoved.next;
