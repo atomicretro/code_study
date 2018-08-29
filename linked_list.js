@@ -25,7 +25,7 @@ class LinkedList {
 
   setHead(value) {
     if(this.head) {
-      this.replaceHead(value)
+      this.head.value = value;
     } else {
       this.head = new LLNode(value, null, null);
       this.tail = this.head;
@@ -35,7 +35,7 @@ class LinkedList {
   }
 
   replaceHead(value) {
-    if(this.head) this.head.value = value
+    if(this.head) this.head.value = value;
     else throw new LinkedListException("No head set");
   }
 
@@ -197,8 +197,11 @@ class LinkedList {
     if(!this.head) return undefined;
     if(this.length === 1) return this._removeOnlyNode();
     let toBeRemoved = this._pointer;
+    // console.log(`pointer: ${this._pointer}`);
+    // console.log(`head: ${this.head}`);
     if(this._pointer === this.head) {
       this._removeHead();
+      this._pointer = this.toBeRemoved.next;
     } else {
       this._remove(this._pointer);
       if(toBeRemoved.next) this._pointer = toBeRemoved.next;
@@ -245,17 +248,12 @@ class LinkedList {
   }
 
   findAtIndex(target) {
-    let count = 0;
+    if(target > self.length - 1) return -1;
     let thisNode = this.head;
-    while(thisNode) {
-      if(thisNode.value === target) {
-        return thisNode;
-      } else {
-        count++;
-        thisNode = thisNode.next;
-      };
+    for(let count = 0; count < target; count++) {
+      thisNode = thisNode.next;
     };
-    return -1;
+    return thisNode;
   }
 
   findAll(target) {
@@ -333,6 +331,8 @@ class LinkedList {
     let toBeRemoved = this.head;
     this.head = null;
     this.tail = null;
+    this._pointer = null;
+    this.length--;
     return toBeRemoved;
   }
 
