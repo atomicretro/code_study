@@ -636,3 +636,23 @@ describe('initialize Linked List without a starting element', () => {
     });
   });
 });
+
+describe('initialize Linked List with a starting element', () => {
+  let list;
+  beforeEach(() => {
+    list = new LinkedList(0);
+  });
+
+  test('list is initialized with head and tail nodes', () => {
+    expect(list.head.value).toBe(0);
+    expect(list.tail.value).toBe(0);
+  });
+
+  test('list is initialized with a pointer', () => {
+    expect(list._pointer.value).toBe(0);
+  });
+
+  test('list is initialized with a length of 1', () => {
+    expect(list.length).toBe(1);
+  });
+});
